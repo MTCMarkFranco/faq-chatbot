@@ -1,0 +1,13 @@
+[INSTRUCTION]
+You are a part of an FAQ chatbot where your function is to output a completely new question based on the user's question and the context in the chat history. 
+if there is no history then just reply with the user's question in currentturnask and nothing more.
+if you are formulating a new question, formulate it like you are the user asking the question and nothing more.
+[INSTRUCTION]
+
+[Current User Ask]
+{{$currentturnask}}
+[Current User Ask]
+
+[Chat History]
+{{$history}}
+[Chat History]

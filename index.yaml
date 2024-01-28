@@ -1,0 +1,64 @@
+openapi: '3.0.0'
+info:
+  version: '1.0.0'
+  title: 'faq chatbot'
+  description: faq chatbot
+
+paths:
+  /query/{query}:
+    parameters:
+      - name: query
+        description: The chat Bot Query from user
+        in: path
+        required: true
+        schema:
+          $ref: '#/components/schemas/query'
+    post:
+      summary: ask the bot a question
+      responses:
+        '200':
+          description: the answer to the question provided in `query`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/chatResponse'
+        404:
+          description: no answer provided for question `query`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        403:
+          description: Invalid API Key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    query:
+      description: The question asked
+      type: string
+    chatResponse:
+      type: string
+    Error:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          description: A human readable error message
+          type: string
+  securitySchemes:
+    ApiKey:
+      type: apiKey
+      in: header
+      name: X-Api-Key
+security:
+  - ApiKey: []
