@@ -33,7 +33,7 @@ class QueryIndexPlugin:
                     include_total_count=True, 
                     search_fields=["Category", "Question", "Answer"],   
                     select=["Category", "Question", "Answer"],
-                    top=3,
+                    top=5,
                     query_type="semantic",
                     semantic_configuration_name="sr-faq")
 

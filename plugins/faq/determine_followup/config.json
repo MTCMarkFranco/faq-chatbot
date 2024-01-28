@@ -3,7 +3,7 @@
     "description": "review query result from previous step determine if a followup question is required based on the chat history for further clarification, if the question is too ambiguous",
     "type": "completion",
     "completion": {
-      "max_tokens": 800,
+      "max_tokens": 910,
       "temperature": 0.7,
       "top_p": 0.95,
       "presence_penalty": 0.0,

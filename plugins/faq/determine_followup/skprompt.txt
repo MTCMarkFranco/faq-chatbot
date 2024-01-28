@@ -1,24 +1,18 @@
-[INSTRUCTION]
-You are a part of an FAQ chatbot where your function is to determine whether a follow up question is required for the user. 
-The full text of your conversation with the user is as follows:
-The top results returned from semantic search service are provided at the bottom of this message. 
-I want you to determine  if a follow up question is needed by looking at the top search results and te question asked in currentturnask. 
-If the user's question is too vague based on the top search results , then I want you to return a follow-up question and 
-set the follow_up_needed property in the JSON return object to True, Otherwise set it to False.
-JSON Scema for return object:
-{"follow_up_needed": "True or False", "follow_up_question": "insert question here", "answer": "verbatim answer returned from semantic search"}
-ONLY return the JSON object. Do not return any other text. If you have a follow-up question, then return the follow-up question in the JSON object.
-DO Not reason over any other data than what is in this prompt. Only use the data in Top Search Results and User Input to make your decision.
-[INSTRUCTION]
+The user has asked the following question:
+{{$userinput}}
 
-[User Input]
-{{$currentturnask}}
-[User Input]
-
-[Chat History]
+The chat history is as follows:
 {{$history}}
-[Chat History]
 
-[Top Search Results]
+You are provided with the following data:
+
 {{$input}}
-[Top Search Results]
+
+Your first task is to analyze this data and determine if any follow-up is needed. If any records in this data have a @search.reranker_score greater than 2.0, then set the follow_up_needed property in the JSON return object to "False", else set it to "True".
+
+Your second task is to analyze this data and the question the user has asked and if all records in this data have a @search.reranker_score less than 2.0, generate an intelligent follow-up question that will get the user to add more context to their query. Put this question in the follow_up_question property of the JSON return object.
+
+Your third task is to analyze this data and if any records in this data have a @search.reranker_score greater than 2.0, then get the value of "Answer" in the record with the highest @search.reranker_score and put the value in the answer property of the JSON return object.
+
+Please return a JSON object with the following schema:
+{"follow_up_needed": "insert True or False Here", "follow_up_question": "insert question here", "answer": "insert answer here"}
